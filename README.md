@@ -25,7 +25,7 @@
 | [flagship-algo-forge](https://github.com/CJX0712/flagship-algo-forge) | ![8/8](https://img.shields.io/badge/self--test-8%2F8-success) | 零依赖复用世界顶级基础算法（注意力 / LayerNorm / AdamW / Xavier / Top-p），每条都是可独立交叉验证的数学不变量 |
 | [flagship-transformer](https://github.com/CJX0712/flagship-transformer) | ![9/9](https://img.shields.io/badge/self--test-9%2F9-success) | 从零反向自动微分 + **RoPE** + 归纳任务注意力**碾压**无注意力基线 + **YaRN** 补长度外推 + **⑤ 系列**：长度课程 + 重调配方，原生外推 L=40 达 **0.75**（逼近同分布上限 0.89，发现"外推相对性"并诚实修正旧结论） |
 | [flagship-rag-engine](https://github.com/CJX0712/flagship-rag-engine) | ![9/9](https://img.shields.io/badge/self--test-9%2F9-success) | 工业级 **KV-Cache 增量解码**（与全量重算**逐位等价**）+ **BM25** 检索 + 端到端 **RAG** 管线 |
-| [flagship-llm-chat](https://github.com/CJX0712/flagship-llm-chat) | ![12/12](https://img.shields.io/badge/self--test-12%2F12-success) | 可对话迷你 LLM 服务层：权重持久化 + 重复惩罚 + 句末符截断，把引擎变成真能对话的系统 |
+| [flagship-llm-chat](https://github.com/CJX0712/flagship-llm-chat) | ![15/15](https://img.shields.io/badge/self--test-15%2F15-success) | 可对话迷你 LLM 服务层 + **⑥ BPE 子词分词**：答案命中率 76%→100%、token 省 41%，把引擎变成真能对话的系统 |
 | [flagship-ai](https://github.com/CJX0712/flagship-ai) | ![29/29](https://img.shields.io/badge/self--test-29%2F29-success) | 四件实物**一键聚合自检总装**（submodule 形式） |
 
 ### ③ 旗舰家族（姊妹项目，同作者 · 晨星）
@@ -50,7 +50,7 @@
 | L4 | 序列建模 Transformer（因果多头注意力、RMSNorm、AdamW） | flagship-transformer |
 | L5 | 推理加速（KV-Cache 增量解码，逐位等价） | flagship-rag-engine |
 | L6 | 检索增强（BM25 + 端到端 RAG） | flagship-rag-engine |
-| L7 | 分词与训练（字符级分词、重复惩罚） | flagship-llm-chat |
+| L7 | 分词与训练（BPE 子词分词、重复惩罚） | flagship-llm-chat |
 | L8 | 对话服务（句末符截断、权重持久化） | flagship-llm-chat |
 | L9 | 端到端集成（聚合自检总装） | flagship-ai |
 | L10 | 验证门禁与闭环（不变量自检 + CI + 开源署名） | 全舰队 |
