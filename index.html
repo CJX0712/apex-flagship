@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>APEX Flagship AI · 旗舰 AI 锻造舰队</title>
+<style>
+  :root{
+    --bg:#0b0f17; --panel:#121826; --panel2:#161e2e; --line:#22304a;
+    --txt:#e7edf6; --muted:#9fb0c8; --accent:#5b9dff; --accent2:#27e0a4;
+    --gold:#ffcf5b; --red:#ff6b6b; --green:#27e0a4;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang SC","Microsoft YaHei",sans-serif;
+       background:radial-gradient(1200px 600px at 80% -10%,#16203a 0%,var(--bg) 55%);color:var(--txt);line-height:1.6}
+  .wrap{max-width:1120px;margin:0 auto;padding:36px 22px 64px}
+  header.hero{text-align:center;padding:30px 0 8px}
+  .badge{display:inline-block;font-size:12px;letter-spacing:2px;color:var(--accent2);
+         border:1px solid var(--line);border-radius:999px;padding:5px 14px;margin-bottom:14px}
+  h1{font-size:40px;margin:6px 0 8px;background:linear-gradient(90deg,var(--accent),var(--accent2));
+     -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-weight:800}
+  .sub{color:var(--muted);max-width:760px;margin:0 auto;font-size:16px}
+  .author{margin-top:14px;color:var(--gold);font-weight:600}
+  h2{font-size:22px;margin:42px 0 16px;padding-left:12px;border-left:4px solid var(--accent)}
+  .grid{display:grid;gap:16px}
+  .g3{grid-template-columns:repeat(auto-fill,minmax(330px,1fr))}
+  .card{background:linear-gradient(180deg,var(--panel),var(--panel2));border:1px solid var(--line);
+        border-radius:14px;padding:18px 18px 16px;transition:.2s;position:relative;overflow:hidden}
+  .card:hover{transform:translateY(-3px);border-color:var(--accent);box-shadow:0 8px 30px rgba(91,157,255,.12)}
+  .card h3{margin:0 0 4px;font-size:17px}
+  .card h3 a{color:var(--txt);text-decoration:none}
+  .card h3 a:hover{color:var(--accent)}
+  .pill{display:inline-block;font-size:12px;font-weight:700;border-radius:6px;padding:2px 9px;margin-bottom:10px}
+  .pill.green{background:rgba(39,224,164,.14);color:var(--green);border:1px solid rgba(39,224,164,.4)}
+  .pill.blue{background:rgba(91,157,255,.14);color:var(--accent);border:1px solid rgba(91,157,255,.4)}
+  .card p{color:var(--muted);font-size:13.5px;margin:8px 0 0}
+  .pillrow{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  /* architecture */
+  .layers{display:grid;gap:10px;counter-reset:L}
+  .layer{display:grid;grid-template-columns:54px 1fr auto;align-items:center;gap:14px;
+         background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 16px}
+  .layer .num{width:40px;height:40px;border-radius:10px;display:grid;place-items:center;font-weight:800;
+              background:linear-gradient(135deg,var(--accent),var(--accent2));color:#06121f}
+  .layer .name{font-weight:600}
+  .layer .desc{color:var(--muted);font-size:13px}
+  .layer .repo{font-size:12px;color:var(--accent);text-align:right;max-width:230px}
+  .philo{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin-top:8px}
+  .ph{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px}
+  .ph .k{font-size:13px;color:var(--gold);font-weight:700;letter-spacing:1px}
+  .ph .t{font-weight:700;margin:4px 0 6px}
+  .ph p{color:var(--muted);font-size:13px;margin:0}
+  footer{text-align:center;color:var(--muted);margin-top:54px;font-size:13px}
+  footer a{color:var(--accent);text-decoration:none}
+  .tag{display:inline-block;font-size:11px;color:var(--muted);border:1px solid var(--line);
+       border-radius:999px;padding:3px 10px;margin:3px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <div class="badge">APEX · FLAGSHIP · AI</div>
+    <h1>旗舰 AI 锻造舰队</h1>
+    <p class="sub">站在世界顶级成果之上 · 零重写 · 集大成 · 有尺子 · 闭环开源。<br>
+    一支可验证、可复现、可运行、署名晨星的"锻造世界顶级 AI"舰队。</p>
+    <div class="author">作者：晨星 · <a href="https://github.com/CJX0712" style="color:var(--gold)">github.com/CJX0712</a></div>
+  </header>
+
+  <h2>① 核心引擎</h2>
+  <div class="grid g3">
+    <div class="card">
+      <span class="pill green">自检 62 / 62</span>
+      <h3><a href="https://github.com/CJX0712/flagship-ai-engine" target="_blank">flagship-ai-engine</a></h3>
+      <p>零依赖、可验证的世界顶级 AI 算法集大成引擎 · 348 个 API 单文件内联 · 浏览器 / Node 双跑 · 已发布 v1.13.0。</p>
+      <div class="pillrow"><span class="tag">零依赖</span><span class="tag">348 API</span><span class="tag">CI</span></div>
+    </div>
+  </div>
+
+  <h2>② 锻造实物（四件 + 总装）</h2>
+  <div class="grid g3">
+    <div class="card">
+      <span class="pill green">自检 8 / 8</span>
+      <h3><a href="https://github.com/CJX0712/flagship-algo-forge" target="_blank">flagship-algo-forge</a></h3>
+      <p>零依赖复用世界顶级基础算法（注意力 / LayerNorm / AdamW / Xavier / Top-p），每条都是可独立交叉验证的数学不变量。</p>
+    </div>
+    <div class="card">
+      <span class="pill green">自检 9 / 9</span>
+      <h3><a href="https://github.com/CJX0712/flagship-transformer" target="_blank">flagship-transformer</a></h3>
+      <p>反向自动微分 + RoPE 位置编码 + 归纳任务上注意力碾压无注意力基线 + YaRN 补长度外推。</p>
+    </div>
+    <div class="card">
+      <span class="pill green">自检 9 / 9</span>
+      <h3><a href="https://github.com/CJX0712/flagship-rag-engine" target="_blank">flagship-rag-engine</a></h3>
+      <p>工业级 KV-Cache 增量解码（与全量重算逐位等价）+ BM25 检索 + 端到端 RAG 管线。</p>
+    </div>
+    <div class="card">
+      <span class="pill green">自检 12 / 12</span>
+      <h3><a href="https://github.com/CJX0712/flagship-llm-chat" target="_blank">flagship-llm-chat</a></h3>
+      <p>可对话迷你 LLM 服务层：权重持久化 + 重复惩罚 + 句末符截断，把引擎变成真能对话的系统。</p>
+    </div>
+    <div class="card">
+      <span class="pill green">自检 29 / 29</span>
+      <h3><a href="https://github.com/CJX0712/flagship-ai" target="_blank">flagship-ai</a></h3>
+      <p>四件实物一键聚合自检总装（submodule 形式），是旗舰锻造闭环的总入口。</p>
+    </div>
+  </div>
+
+  <h2>③ 旗舰家族（姊妹项目）</h2>
+  <div class="grid g3">
+    <div class="card">
+      <span class="pill blue">十层总纲</span>
+      <h3><a href="https://github.com/CJX0712/innovation-flagship-ai" target="_blank">innovation-flagship-ai</a></h3>
+      <p>创新旗舰 AI 总纲：十层架构 · 零重写集大成 · CPU 可运行可复现可验证。</p>
+    </div>
+    <div class="card">
+      <span class="pill blue">64 不变量</span>
+      <h3><a href="https://github.com/CJX0712/axiom-ai" target="_blank">axiom-ai</a></h3>
+      <p>自验证 AI 微指令操作系统：十层架构 × 1024 微指令 × 64 项数学不变量。</p>
+    </div>
+    <div class="card">
+      <span class="pill green">门禁 17 / 17</span>
+      <h3><a href="https://github.com/CJX0712/tianji-ai" target="_blank">tianji-ai</a></h3>
+      <p>世界顶级混合架构语言模型全栈（Gated DeltaNet × MLA × MoE × Muon2 × 投机解码 × 对齐）。</p>
+    </div>
+  </div>
+
+  <h2>十层锻造架构（旗舰家族映射）</h2>
+  <div class="layers" id="layers"></div>
+
+  <h2>旗舰哲学（四条，缺一不可）</h2>
+  <div class="philo">
+    <div class="ph"><div class="k">① 零重写</div><div class="t">复用世界最优</div>
+      <p>任何需求先检索世界已有最优解——顶级数学 / 算法 / 代码 / 开源项目——直接复用、组合、超越。</p></div>
+    <div class="ph"><div class="k">② 集大成</div><div class="t">站在巨人肩上</div>
+      <p>每一行代码、每个模块都站在世界顶级成果之上；凡有更强现成方案，立即替换自写。</p></div>
+    <div class="ph"><div class="k">③ 有尺子</div><div class="t">独立打分</div>
+      <p>每条自检都是可被独立实现交叉验证的数学不变量；每个基准都有真实对手。尺子照出的不是胜利，是洞。</p></div>
+    <div class="ph"><div class="k">④ 闭环交付</div><div class="t">开源署名</div>
+      <p>成果完整开源至 GitHub，可运行、可复现、可验证，署名晨星。</p></div>
+  </div>
+
+  <footer>
+    <p>APEX Flagship AI · 锻造世界顶级 AI · 作者 晨星</p>
+    <p><a href="https://github.com/CJX0712">github.com/CJX0712</a> · 全部仓库 MIT 协议 · 零依赖 · CPU 可跑</p>
+  </footer>
+</div>
+
+<script>
+const LAYERS=[
+  [1,"数学基础内核","数值 / 线代 / 概率 / 优化","flagship-ai-engine · flagship-algo-forge"],
+  [2,"自动微分引擎","反向模式、逐 op 解析梯度","flagship-ai-engine"],
+  [3,"注意力与位置编码","RoPE / YaRN / NTK","flagship-transformer"],
+  [4,"序列建模 Transformer","因果多头注意力、RMSNorm、AdamW","flagship-transformer"],
+  [5,"推理加速","KV-Cache 增量解码，逐位等价","flagship-rag-engine"],
+  [6,"检索增强","BM25 + 端到端 RAG","flagship-rag-engine"],
+  [7,"分词与训练","字符级分词、重复惩罚","flagship-llm-chat"],
+  [8,"对话服务","句末符截断、权重持久化","flagship-llm-chat"],
+  [9,"端到端集成","聚合自检总装","flagship-ai"],
+  [10,"验证门禁与闭环","不变量自检 + CI + 开源署名","全舰队"],
+];
+const box=document.getElementById('layers');
+LAYERS.forEach(([n,name,desc,repo])=>{
+  const d=document.createElement('div');d.className='layer';
+  d.innerHTML=`<div class="num">${n}</div>
+    <div><div class="name">L${n} · ${name}</div><div class="desc">${desc}</div></div>
+    <div class="repo">${repo}</div>`;
+  box.appendChild(d);
+});
+</script>
+</body>
+</html>
