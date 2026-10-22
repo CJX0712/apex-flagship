@@ -22,7 +22,8 @@ const { execFileSync } = require('child_process');
 
 const ROOT = path.resolve(__dirname, '..');
 const NODE = process.execPath;
-const DOCS = ['发布文案.md', 'AI验伪方法论.md', 'README.md'];
+// 受验文件：前端大门两篇文案 + 门户 README + **个人主页 README**（品牌第一落点，数字同样会漂移）
+const DOCS = ['发布文案.md', 'AI验伪方法论.md', 'README.md', '../CJX0712/README.md'];
 
 // ① 链接核对：文案里出现的 GitHub 仓库链接 → 必须真实存在
 // ② 数字溯源：[关键数字, 必须出现在该源仓库 README 中的字符串]
@@ -81,11 +82,14 @@ if (want('links')) {
   ));
   for (const r of repos) {
     let ok = false, detail = '';
-    try {
-      execFileSync('gh', ['api', `repos/CJX0712/${r}`], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] });
-      ok = true; detail = '仓库存在';
-    } catch (e) {
-      detail = '仓库不存在或无权访问';
+    // GitHub API 偶发网络抖动（schannel）→ 重试 3 次，避免把网络故障误判为"仓库不存在"
+    for (let attempt = 1; attempt <= 3 && !ok; attempt++) {
+      try {
+        execFileSync('gh', ['api', `repos/CJX0712/${r}`], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] });
+        ok = true; detail = '仓库存在';
+      } catch (e) {
+        detail = attempt < 3 ? '网络抖动，重试中…' : '仓库不存在或无权访问';
+      }
     }
     add('链接', r, ok, detail);
   }
@@ -118,7 +122,11 @@ function parseTotal(name, out) {
     lines.forEach((l) => { const m = l.match(/(\d+)\/(\d+)\s*$/); if (m) { a += +m[1]; b += +m[2]; } });
     return b ? `${a}/${b}` : null;
   }
-  const m = out.match(/(\d+)\/(\d+)\s*全绿/);
+  // ① "PASS 62/62 — 全部不变量自检通过"（flagship-ai-engine 格式）
+  let m = out.match(/PASS\s+(\d+)\/(\d+)/);
+  if (m) return `${m[1]}/${m[2]}`;
+  // ② "结果：9/9 全绿"（其余仓库格式）
+  m = out.match(/(\d+)\/(\d+)\s*全绿/);
   return m ? `${m[1]}/${m[2]}` : null;
 }
 if (want('tests')) {
