@@ -22,8 +22,8 @@ const { execFileSync } = require('child_process');
 
 const ROOT = path.resolve(__dirname, '..');
 const NODE = process.execPath;
-// 受验文件：前端大门两篇文案 + 门户 README + **个人主页 README**（品牌第一落点，数字同样会漂移）
-const DOCS = ['发布文案.md', 'AI验伪方法论.md', 'README.md', '../CJX0712/README.md'];
+// 受验文件：前端大门两篇文案 + 门户 README + **门户首页 index.html** + **个人主页 README**（品牌落点，数字同样会漂移）
+const DOCS = ['发布文案.md', 'AI验伪方法论.md', 'README.md', 'index.html', '../CJX0712/README.md'];
 
 // ① 链接核对：文案里出现的 GitHub 仓库链接 → 必须真实存在
 // ② 数字溯源：[关键数字, 必须出现在该源仓库 README 中的字符串]
@@ -151,6 +151,57 @@ if (want('tests')) {
     add('自检数', t.name, total && claimStr && total === claimStr,
       `实测=${total || '解析失败'} · 文案声称=${claimStr || '文案中未找到'}${code ? ' · (退出码 ' + code + ')' : ''}`);
   }
+}
+
+// ---------- ④ 门面徽章一致性（跨所有文档，含 index.html 门户首页）----------
+// 直接抓"门户/README/个人主页某处徽章和别处不一致"的漂移（例：门户还写 12/12，仓库已 15/15）。
+// 已验证自检总数（由 ③ 实跑核对 / 最近一次全量核对固化）。改这里前先跑一次 node verify-copy.js 全量。
+if (want('badges') || want('tests') || !only) {
+  const VERIFIED = {
+    'flagship-ai-engine': '62/62',
+    'flagship-algo-forge': '8/8',
+    'flagship-transformer': '9/9',
+    'flagship-rag-engine': '9/9',
+    'flagship-llm-chat': '15/15',
+    'flagship-monorepo': '32/32',
+  };
+  const esc = (s) => s.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&');
+  // 归一化：门户首页 pill 用带空格格式「8 / 8」，统一成「8/8」再匹配
+  const norm = allText.replace(/(\d+)\s*\/\s*(\d+)/g, '$1/$2');
+  // 词边界别名，防 flagship-ai 撞上 flagship-ai-engine 前缀
+  const aliasRe = Object.fromEntries(Object.keys(VERIFIED).map((r) => [r,
+    new RegExp('(?<![-\\w])' + esc(r) + '(?![-\\w])')]));
+  const WIN = 80; // 徽章前后窗口：README 徽章在仓库名后，门户 pill 在仓库名前一行
+  const perRepo = {};
+  for (const r of Object.keys(VERIFIED)) perRepo[r] = new Set();
+  for (const bm of norm.matchAll(/(\d+)\/(\d+)/g)) {
+    const lo = Math.max(0, bm.index - WIN), hi = Math.min(norm.length, bm.index + bm[0].length + WIN);
+    const win = norm.slice(lo, hi);
+    const hits = Object.keys(VERIFIED).filter((r) => aliasRe[r].test(win));
+    if (hits.length === 1) perRepo[hits[0]].add(`${bm[1]}/${bm[2]}`); // 恰好归属一个仓库才采信，避免串行
+  }
+  for (const [repo, verified] of Object.entries(VERIFIED)) {
+    const uniq = [...perRepo[repo]];
+    const ok = uniq.length > 0 && uniq.every((x) => x === verified);
+    add('门面徽章', repo, ok, `出现 ${uniq.join(' , ') || '无（未在门面采信到）'} · 应全为 ${verified}`);
+  }
+}
+
+// ---------- ⑤ 演示台 vendor 资产防漂移 ----------
+// 验伪演示台原样加载 flagship-algo-forge/apex-forge.js；门户内的副本必须与源仓库逐字节一致，
+// 否则演示台跑出的数字会和仓库徽章脱节——"尺子"先塌在自己门口的演示上。
+if (want('vendor') || want('badges') || want('tests') || !only) {
+  const src = path.join(ROOT, 'flagship-algo-forge', 'apex-forge.js');
+  const vend = path.join(__dirname, 'assets', 'apex-forge.js');
+  let ok = false, detail = '';
+  if (!fs.existsSync(src)) detail = '源 flagship-algo-forge/apex-forge.js 不存在';
+  else if (!fs.existsSync(vend)) detail = '门户 assets/apex-forge.js 缺失（演示台无法加载）';
+  else {
+    const a = fs.readFileSync(src), b = fs.readFileSync(vend);
+    ok = a.equals(b);
+    detail = ok ? '与源仓库逐字节一致' : '与源仓库不一致 → 重新 cp，否则演示数字会脱节';
+  }
+  add('vendor 资产', 'assets/apex-forge.js', ok, detail);
 }
 
 // ---------- 输出 ----------

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>验伪演示台 · APEX Flagship AI</title>
+<style>
+  :root{
+    --bg:#0b0f17; --panel:#121826; --panel2:#161e2e; --line:#22304a;
+    --txt:#e7edf6; --muted:#9fb0c8; --accent:#5b9dff; --accent2:#27e0a4;
+    --gold:#ffcf5b; --red:#ff6b6b; --green:#27e0a4;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang SC","Microsoft YaHei",sans-serif;
+       background:radial-gradient(1200px 600px at 80% -10%,#16203a 0%,var(--bg) 55%);color:var(--txt);line-height:1.6;min-height:100vh}
+  .wrap{max-width:860px;margin:0 auto;padding:40px 22px 72px}
+  a{color:var(--accent);text-decoration:none}
+  header.hero{text-align:center;padding:10px 0 6px}
+  .badge{display:inline-block;font-size:12px;letter-spacing:2px;color:var(--accent2);
+         border:1px solid var(--line);border-radius:999px;padding:5px 14px;margin-bottom:16px}
+  h1{font-size:34px;margin:6px 0 10px;background:linear-gradient(90deg,var(--accent),var(--accent2));
+     -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-weight:800}
+  .sub{color:var(--muted);max-width:640px;margin:0 auto;font-size:15px}
+  .author{margin-top:12px;color:var(--gold);font-weight:600;font-size:14px}
+  .runbar{margin:30px auto 8px;text-align:center}
+  button.run{font-size:17px;font-weight:800;color:#06121f;cursor:pointer;
+    background:linear-gradient(90deg,var(--accent),var(--accent2));border:0;border-radius:12px;
+    padding:15px 34px;box-shadow:0 8px 30px rgba(91,157,255,.28);transition:.15s}
+  button.run:hover{transform:translateY(-2px)}
+  button.run:disabled{opacity:.55;cursor:default;transform:none}
+  .counter{margin-top:14px;font-size:15px;color:var(--muted);font-variant-numeric:tabular-nums}
+  .counter b{color:var(--txt)}
+  #results{margin-top:22px;display:flex;flex-direction:column;gap:10px}
+  .check{display:grid;grid-template-columns:34px 1fr auto;align-items:center;gap:12px;
+    background:linear-gradient(180deg,var(--panel),var(--panel2));border:1px solid var(--line);
+    border-radius:12px;padding:13px 16px;opacity:0;transform:translateY(8px);
+    animation:pop .35s forwards}
+  @keyframes pop{to{opacity:1;transform:none}}
+  .check .mark{font-size:20px}
+  .check .name{font-weight:600}
+  .check .detail{color:var(--muted);font-size:13px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;text-align:right}
+  .check.pass{border-color:rgba(39,224,164,.45)}
+  .check.fail{border-color:rgba(255,107,107,.55)}
+  .verdict{margin-top:20px;text-align:center;font-size:16px;font-weight:700;display:none}
+  .verdict.ok{color:var(--green)}
+  .note{margin-top:26px;background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--accent2);
+    border-radius:10px;padding:14px 18px;color:var(--muted);font-size:13.5px}
+  .note b{color:var(--txt)}
+  .cmd{margin-top:14px;background:#0a0e16;border:1px solid var(--line);border-radius:10px;padding:12px 16px;
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12.5px;color:#c7d5ea;overflow:auto}
+  .cmd .c{color:var(--accent2)}
+  footer{text-align:center;color:var(--muted);margin-top:44px;font-size:13px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <div class="badge">APEX · 有尺子 · LIVE</div>
+    <h1>验伪演示台</h1>
+    <p class="sub">别信我。点一下，8 条数学不变量在你自己的浏览器里实时跑——每个数字都是现在算出来的，不是我写死的文本。</p>
+    <div class="author">作者：晨星 · <a href="https://github.com/CJX0712" style="color:var(--gold)">github.com/CJX0712</a></div>
+  </header>
+
+  <div class="runbar">
+    <button class="run" id="run">▶ 运行 8 条不变量验伪</button>
+    <div class="counter" id="counter">等待运行…</div>
+  </div>
+
+  <div id="results"></div>
+  <div class="verdict" id="verdict"></div>
+
+  <div class="note">
+    <b>这就是"有尺子"：</b>解析梯度 vs 中心差分（梯度检验）、LayerNorm 输出方差 vs 理论值、Softmax 平移不变、注意力因果掩码……每条都是<b>能被独立实现交叉验证</b>的数学不变量。上面每个数字都来自你刚触发的这次真实计算，刷新后重跑结果一致（确定性种子 20261021）——可复现，才是尺子。
+    <div class="cmd">
+      <span class="c">#</span> 不服浏览器？在自己机器上跑同一份源码：<br>
+      git clone https://github.com/CJX0712/flagship-algo-forge &amp;&amp; cd flagship-algo-forge<br>
+      node apex-forge.js <span class="c"># → 结果：8/8 全绿</span>
+    </div>
+  </div>
+
+  <footer>
+    APEX Flagship AI · 从零造 AI，并造尺子证明它没骗你 ·
+    <a href="https://github.com/CJX0712/apex-flagship">舰队门户</a> ·
+    <a href="https://github.com/CJX0712/flagship-algo-forge">本页源码 flagship-algo-forge</a>
+  </footer>
+</div>
+
+<script src="assets/apex-forge.js"></script>
+<script>
+(function(){
+  var btn=document.getElementById('run'), box=document.getElementById('results'),
+      counter=document.getElementById('counter'), verdict=document.getElementById('verdict');
+  btn.addEventListener('click', function(){
+    if(typeof APEX==='undefined' || !APEX.runSelfTest){
+      box.innerHTML='<div class="check fail"><span class="mark">⚠️</span><span class="name">引擎未加载</span><span class="detail">assets/apex-forge.js 加载失败</span></div>';
+      return;
+    }
+    btn.disabled=true; btn.textContent='⏳ 正在你浏览器里跑…';
+    box.innerHTML=''; verdict.style.display='none'; verdict.className='verdict';
+    counter.innerHTML='已通过 <b>0</b>/8';
+    var results=APEX.runSelfTest(), pass=0;
+    results.forEach(function(r,i){
+      setTimeout(function(){
+        var row=document.createElement('div');
+        row.className='check '+(r.pass?'pass':'fail');
+        row.innerHTML='<span class="mark">'+(r.pass?'✅':'❌')+'</span>'+
+                      '<span class="name">'+r.name+'</span>'+
+                      '<span class="detail">'+r.detail+'</span>';
+        box.appendChild(row);
+        if(r.pass) pass++;
+        counter.innerHTML='已通过 <b>'+pass+'</b>/'+results.length;
+        if(i===results.length-1){
+          btn.disabled=false; btn.textContent='↻ 再跑一遍';
+          if(pass===results.length){
+            verdict.textContent='✅ '+pass+'/'+results.length+' 全绿 —— 上面每个数字都是你这台设备刚算出来的';
+            verdict.className='verdict ok'; verdict.style.display='block';
+          }else{
+            verdict.textContent='⚠️ '+pass+'/'+results.length+' —— 有检查未过，欢迎提 issue';
+            verdict.className='verdict'; verdict.style.display='block';
+          }
+        }
+      }, i*260);
+    });
+  });
+})();
+</script>
+</body>
+</html>
