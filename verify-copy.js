@@ -62,7 +62,8 @@ const args = process.argv.slice(2);
 const FAST = args.includes('--fast');
 const onlyArg = (args.find((a) => a.startsWith('--only=')) || '').split('=')[1];
 const only = onlyArg ? onlyArg.split(',') : null;
-const want = (k) => !only || only.includes(k);
+// --fast 跳过最慢的「自检数」实跑（只核对链接 + 数字溯源，秒级）
+const want = (k) => (FAST && k === 'tests') ? false : (!only || only.includes(k));
 
 const readDoc = (f) => {
   const p = path.join(__dirname, f);

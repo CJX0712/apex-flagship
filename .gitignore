@@ -1,0 +1,8 @@
+# 测试 / 自检产物
+*.out
+*.log
+
+# 依赖与构建
+node_modules/
+dist/
+.cache/
