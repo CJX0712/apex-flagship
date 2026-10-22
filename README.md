@@ -31,7 +31,7 @@
 | [flagship-transformer](https://github.com/CJX0712/flagship-transformer) | ![9/9](https://img.shields.io/badge/self--test-9%2F9-success) | 从零反向自动微分 + **RoPE** + 归纳任务注意力**碾压**无注意力基线 + **YaRN** 补长度外推 + **⑤ 系列**：长度课程 + 重调配方，原生外推 L=40 达 **0.75**（逼近同分布上限 0.89，发现"外推相对性"并诚实修正旧结论） |
 | [flagship-rag-engine](https://github.com/CJX0712/flagship-rag-engine) | ![9/9](https://img.shields.io/badge/self--test-9%2F9-success) | 工业级 **KV-Cache 增量解码**（与全量重算**逐位等价**）+ **BM25** 检索 + 端到端 **RAG** 管线 |
 | [flagship-llm-chat](https://github.com/CJX0712/flagship-llm-chat) | ![15/15](https://img.shields.io/badge/self--test-15%2F15-success) | 可对话迷你 LLM 服务层 + **⑥ BPE 子词分词**：答案命中率 76%→100%、token 省 41%，把引擎变成真能对话的系统 |
-| [flagship-monorepo](https://github.com/CJX0712/flagship-monorepo) | ![29/29](https://img.shields.io/badge/self--test-29%2F29-success) | 四件实物**一键聚合自检总装**（submodule 形式） |
+| [flagship-monorepo](https://github.com/CJX0712/flagship-monorepo) | ![32/32](https://img.shields.io/badge/self--test-32%2F32-success) | 四件实物**一键聚合自检总装**（submodule 形式） |
 
 ### ③ 旗舰家族（姊妹项目，同作者 · 晨星）
 
@@ -76,7 +76,7 @@
 ## 四、如何导航 / 参与
 
 - 想看**最全算法内核**：进 [flagship-ai-engine](https://github.com/CJX0712/flagship-ai-engine)（62/62 自检，348 API）。
-- 想看**四件可跑实物**：进 [flagship-monorepo](https://github.com/CJX0712/flagship-monorepo)（聚合总装，29/29）。
+- 想看**四件可跑实物**：进 [flagship-monorepo](https://github.com/CJX0712/flagship-monorepo)（聚合总装，32/32）。
 - 想看**十层总纲 / 微指令操作系统**：进 [innovation-flagship-ai](https://github.com/CJX0712/innovation-flagship-ai) / [axiom-ai](https://github.com/CJX0712/axiom-ai)。
 - 想看**前沿混合架构 LM 全栈**：进 [tianji-ai](https://github.com/CJX0712/tianji-ai)。
 
