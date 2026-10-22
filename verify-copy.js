@@ -22,8 +22,8 @@ const { execFileSync } = require('child_process');
 
 const ROOT = path.resolve(__dirname, '..');
 const NODE = process.execPath;
-// 受验文件：前端大门两篇文案 + 门户 README + **门户首页 index.html** + **个人主页 README**（品牌落点，数字同样会漂移）
-const DOCS = ['发布文案.md', 'AI验伪方法论.md', 'README.md', 'index.html', '../CJX0712/README.md'];
+// 受验文件：前端大门两篇文案 + 门户 README + 传播作战包(含可发布成稿) + **门户首页 index.html** + **个人主页 README**（品牌落点，数字同样会漂移）
+const DOCS = ['发布文案.md', 'AI验伪方法论.md', 'README.md', '传播作战包.md', 'index.html', '../CJX0712/README.md'];
 
 // ① 链接核对：文案里出现的 GitHub 仓库链接 → 必须真实存在
 // ② 数字溯源：[关键数字, 必须出现在该源仓库 README 中的字符串]

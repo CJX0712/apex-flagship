@@ -3,6 +3,8 @@
 > 一套可复现的方法，外加我自己的失败记录
 > 作者：晨星 · 舰队：[apex-flagship](https://github.com/CJX0712/apex-flagship)
 
+🖱️ **先自己验，再读文章**：[验伪演示台](https://cjx0712.github.io/apex-flagship/demo.html) —— 点一下，8 条数学不变量在你浏览器里实时跑。读完这篇，你会更看懂每个数字在证明什么。
+
 ---
 
 ## 一、问题：顺滑 ≠ 正确

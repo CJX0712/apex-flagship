@@ -3,6 +3,8 @@
 > **一套开源的"AI 验伪"方法与实物** —— 不是造一个 AI 给你看，是造一把尺子，证明它没在糊弄你。
 > 作者：**晨星** · GitHub: [CJX0712](https://github.com/CJX0712)
 
+> 🖱️ **别信我，自己验**：[验伪演示台](https://cjx0712.github.io/apex-flagship/demo.html)（8 条不变量在浏览器实时跑）· [舰队门户](https://cjx0712.github.io/apex-flagship/)
+
 在这个人人都能被 AI 生成物说服的时代，"**怎么知道 AI 没在糊弄你**"正在变成一种稀缺能力。
 
 **APEX Flagship AI 是一支用零依赖 JavaScript 从零造出来的 AI 舰队**——反向自动微分、带 RoPE 的 Transformer、KV-Cache 推理引擎、能对话的迷你 LLM、BPE 子词分词，全部开源、可跑、可复现。但真正让它与众不同的不是"从零造了个 AI"（这种事不缺人做），是第二件事：
